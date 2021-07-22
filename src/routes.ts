@@ -1,9 +1,10 @@
-import { Router } from "express";
+import { Router } from 'express';
+import CarController from './controllers/CarController'; './controllers/CarController';
 
 const routes = Router();
 
-routes.get('/', (req, res) => {
-    return res.status(200).json('hello world');
-})
+
+routes.post('/cars', CarController.save);
+routes.get('/cars', CarController.getAll);
 
 export default routes;
