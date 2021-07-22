@@ -1,17 +1,17 @@
 import mongoose from "mongoose";
 
-async function connect() {
+async function connect(): Promise<void> {
     try {
-        await mongoose.connect("mongodb://localhost/crud",
-            {
-                useNewUrlParser: true,
-                useUnifiedTopology: true
-            }
-        )
+
+        mongoose.set('useNewUrlParser', true);
+        mongoose.set('useFindAndModify', false);
+        mongoose.set('useCreateIndex', true);
+        mongoose.set('useUnifiedTopology', true);
+        await mongoose.connect("mongodb://localhost/crud");
 
         console.log('database to conected')
     } catch (error) {
-        console.log(error);
+        console.log(typeof error);
     }
 
 }
