@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "ts-node-dev ./src/server.ts",
     "build": "tsc",
-    "prod": "node ./build/server.js"
+    "prod": "pm2 start ./build/server.js"
   },
   "devDependencies": {
     "@types/express": "^4.17.13",
@@ -17,6 +17,7 @@
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "mongoose": "^5.13.3",
+    "pm2": "^5.1.0",
     "tsc": "^2.0.3"
   }
 }
