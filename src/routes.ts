@@ -6,9 +6,9 @@ const routes = Router();
 
 routes.post('/cars', CarController.save);
 
-routes.get('/cars', CarController.getAll);
+routes.get('/car/:car_id', CarController.getCar);
 
-routes.get('/car', CarController.getCar);
+routes.get('/cars', CarController.getCars);
 
 routes.put('/cars/:car_id', CarController.update);
 

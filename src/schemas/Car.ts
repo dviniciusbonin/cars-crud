@@ -1,5 +1,4 @@
 import mongoose, { Schema } from 'mongoose';
-
 const carSchema = new Schema({
 
     brand: String,
@@ -14,7 +13,7 @@ const carSchema = new Schema({
 
     gearshift: String,
 
-    sellingPrice: Number
+    sellingPrice: Number,
 });
 
 export default mongoose.model("cars", carSchema);

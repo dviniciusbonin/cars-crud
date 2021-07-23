@@ -1,82 +1,141 @@
 import Car from '../schemas/Car';
+import { toNumber } from '../helpers/toNumber';
 import { convertReal } from '../helpers/convertReal';
 
 interface IFilter {
     brand?: string;
     model?: string;
     version?: string;
-    year?: string;
-    km?: string;
+    year?: number;
+    km?: number;
     gearshift?: string;
-    sellingPrice?: string;
+    sellingPrice?: number;
+    maxPrice?: number;
+    maxYear?: number;
 }
 
-export async function filterQuery(attributes: IFilter) {
-    console.clear();
-    console.log(attributes);
-
-    if (attributes.brand) {
-        const car = await Car.find({
+export async function filterQuery({ brand, model, version, year, km, gearshift, sellingPrice, maxPrice = 100000000000, maxYear = 2021 }: IFilter) {
+    let car = 0;
+    if (brand) {
+        car = await Car.find({
             brand: {
-                $eq: attributes.brand
-            }
-        });
+                $eq: brand
+            },
 
-        return car;
-    }
-    if (attributes.model) {
-        const car = await Car.find({
-            model: {
-                $eq: attributes.model
-            }
-        });
-
-        return car;
-    }
-    if (attributes.version) {
-        const car = await Car.find({
-            version: {
-                $eq: attributes.version
-            }
-        });
-
-        return car;
-    }
-    if (attributes.year) {
-        const car = await Car.find({
             year: {
-                $eq: attributes.year
-            }
-        });
+                $lte: maxYear
+            },
 
-        return car;
-    }
-    if (attributes.gearshift) {
-        const car = await Car.find({
-            gearshift: {
-                $eq: attributes.gearshift
-            }
-        });
-
-        return car;
-    }
-    if (attributes.km) {
-        const car = await Car.find({
-            km: {
-                $eq: attributes.km
-            }
-        });
-
-        return car;
-    }
-    if (attributes.sellingPrice) {
-        const car = await Car.find({
             sellingPrice: {
-                $eq: attributes.sellingPrice
+                $lte: maxPrice
+            }
+
+        });
+
+
+    }
+    if (model) {
+        car = await Car.find({
+            model: {
+                $eq: model
+            },
+            year: {
+                $lte: maxYear
+            },
+
+            sellingPrice: {
+                $lte: maxPrice
             }
         });
 
-        return car;
+
     }
+    if (version) {
+        car = await Car.find({
+            version: {
+                $eq: version
+            },
+            year: {
+                $lte: maxYear
+            },
+
+            sellingPrice: {
+                $lte: maxPrice
+            }
+        });
+
+
+    }
+    if (year) {
+        car = await Car.find({
+            year: {
+                $eq: year
+            },
+
+            sellingPrice: {
+                $lte: maxPrice
+            }
+        });
+
+    }
+    if (gearshift) {
+        car = await Car.find({
+            gearshift: {
+                $eq: gearshift
+            },
+            year: {
+                $lte: maxYear
+            },
+
+            sellingPrice: {
+                $lte: maxPrice
+            }
+        });
+
+    }
+    if (km) {
+        car = await Car.find({
+            km: {
+                $eq: km
+            },
+            year: {
+                $lte: maxYear
+            },
+
+            sellingPrice: {
+                $lte: maxPrice
+            }
+        });
+
+    }
+    if (sellingPrice) {
+        car = await Car.find({
+            sellingPrice: {
+                $eq: sellingPrice
+            },
+
+            year: {
+                $lte: maxYear
+            }
+        });
+
+    }
+
+
+    if (car == 0) {
+        car = await Car.find({
+            sellingPrice: {
+                $lte: maxPrice
+            },
+
+            year: {
+                $lte: maxYear
+            }
+        });
+    }
+
+
+
+    return car;
 
 }
