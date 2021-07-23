@@ -14,7 +14,7 @@ async function connect(): Promise<void> {
 
         console.log('database to conected')
     } catch (error) {
-        console.log(typeof error);
+        console.log('ERROR connect database');
     }
 
 }

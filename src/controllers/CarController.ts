@@ -33,7 +33,7 @@ class CarContoller {
             brand, model, version, year, km, gearshift, sellingPrice: toNumber(sellingPrice)
         });
 
-        return response.json(car);
+        return response.status(201).json(car);
     }
 
     async getCar(request: Request, response: Response) {
