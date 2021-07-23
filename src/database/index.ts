@@ -1,4 +1,7 @@
 import mongoose from "mongoose";
+import { config } from 'dotenv';
+config();
+const uri = `${process.env.URI}`;
 
 async function connect(): Promise<void> {
     try {
@@ -7,7 +10,7 @@ async function connect(): Promise<void> {
         mongoose.set('useFindAndModify', false);
         mongoose.set('useCreateIndex', true);
         mongoose.set('useUnifiedTopology', true);
-        await mongoose.connect("mongodb://localhost/crud");
+        await mongoose.connect(uri);
 
         console.log('database to conected')
     } catch (error) {
